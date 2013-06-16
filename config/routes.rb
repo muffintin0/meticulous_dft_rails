@@ -1,4 +1,18 @@
 MeticulousDft::Application.routes.draw do
+ 
+  devise_for :users, controllers:{omniauth_callbacks: 'omniauth_callbacks'}
+ 
+  get "users/check_name"
+  get "users/check_email"
+  get "users/search"
+  resources :users, only:[:index, :show]
+
+  root :to => "home#index"
+ 
+  namespace :jaguar do
+    resources :gsfcs, path: "/ground-state-forced-convergence"
+  end 
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

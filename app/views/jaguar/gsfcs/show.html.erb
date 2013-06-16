@@ -1,0 +1,6 @@
+<% if @gsfc_job %>
+	<h2>Job Details</h2>
+	<%= @gsfc_job.unique_name%>
+<% else %>
+	<p>The job dose not exists. Return to <%= link_to 'All GSFC jobs', jaguar_gsfcs_path%></p>
+<% end %>

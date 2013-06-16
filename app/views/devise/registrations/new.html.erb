@@ -1,0 +1,96 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), html:{class:'form-horizontal', id:'sign_up_form'}) do |f| %>
+  <%= devise_error_messages! %>
+
+   <div class="control-group">    
+    <%= f.label :email , class:'control-label'%>
+    <div class="controls">
+      <%= f.email_field :email, placeholder:"Enter email address", class:'span4' %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :name, class:'control-label' %>
+    <div class="controls">
+      <%= f.text_field :name, placeholder:'Enter username, 6 characters minimum', class:'span4' %>
+    </div>
+  </div>
+
+	<% if f.object.password_required? %>
+
+	  <div class="control-group">
+	    <%= f.label :password, class:'control-label' %>
+	   <!-- Use html so i can set id :( for the password match validation-->
+	    <div class="controls">
+	    	<input class="span4" id="user_password" name="user[password]" placeholder="Enter password, 6 characters minimum" size="30" type="password">
+	    </div>
+	  </div>
+	
+	  <div class="control-group">
+	    <%= f.label :password_confirmation, 'Repeat Password', class:'control-label' %>
+	    <div class="controls">
+	      <%= f.password_field :password_confirmation, placeholder:'Repeat password', class:'span4' %>
+	    </div>
+	  </div>
+	  
+	<% end %>
+
+  <div class="control-group">
+    <div class="controls">
+      <%= f.submit "Sign up", class:'btn btn-inverse'%>
+    </div>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#sign_up_form").validate({
+      onfocusout: function(element) { $(element).valid(); } ,
+
+      rules: {
+          "user[name]":{
+              required: true,
+              remote: "/users/check_name"
+          },
+          "user[email]":{
+              required: true,
+              email: true,
+              remote: '/users/check_email'
+          },
+          "user[password]":{
+              required: true,
+              minlength: 6
+          },
+          "user[password_confirmation]":{
+              required: true,
+              minlength: 6,
+              equalTo: "#user_password"
+          }
+      },
+      messages: {
+          "user[name]":{
+              required: "The user name is required",
+              remote: "The username has already been taken"
+          },
+          "user[email]":{
+              required: "The email address is required",
+              email: "A valid email address is required",
+              remote: "The email address has already been taken"
+          },
+          "user[password]":{
+              required: "The password is required",
+              minlength: "Min Length is 6 characters"
+          },
+          "user[password_confirmation]":{
+              required: "The repeate password is required",
+              minlength: "Min Length is 6 characters",
+              equalTo: "Passwords Doesn't Match"
+          }
+      },
+      errorElement: "div",
+  });
+});
+</script>

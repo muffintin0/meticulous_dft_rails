@@ -1,0 +1,14 @@
+<h2>GSFC Jobs</h2>
+
+<div ng-controller="GsfcCtrl">
+	<ul>
+		<li ng-repeat="gsfc_job in gsfc_jobs">
+			{{gsfc_job.unique_name}}
+		</li>
+	</ul>
+</div>
+
+<!--
+<% @gsfc_jobs.each do |gsfc_job|%>
+	<%= link_to gsfc_job.unique_name, jaguar_gsfc_path(gsfc_job)%><br/>
+<% end %> -->

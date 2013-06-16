@@ -12,4 +12,28 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require bootstrap
+//= require angular
+//= require angular-bootstrap
+//= require angular-resource
+//= require ./users
+//= require_tree ./augular
+
+$(document).ready(function(){
+	$('#username_searchbox').typeahead({
+		source: function (query, process) {
+			return $.get(
+	      '/users/search',
+	      { query: query },
+	      function (data) {
+	                return process(data);
+	      });
+	    },
+	    
+	  updater: function(item){
+			window.location = '/users/'+item;
+	    return item;
+	  }
+  });
+	
+});
